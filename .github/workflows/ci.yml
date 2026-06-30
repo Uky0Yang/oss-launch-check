@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run tests
+        run: python -m unittest discover -s tests
+      - name: Run launch check
+        run: oss-launch-check . --min-score 80 --fail-on-error
+      - name: Generate markdown report
+        run: oss-launch-check . --format markdown --output OSS_LAUNCH_REPORT.md
+      - name: Verify report
+        run: test -s OSS_LAUNCH_REPORT.md

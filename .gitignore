@@ -1,0 +1,14 @@
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+*.pyc
+OSS_LAUNCH_REPORT.md
+oss-launch-report.json
+.DS_Store
+Thumbs.db
