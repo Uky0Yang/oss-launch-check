@@ -2,7 +2,7 @@
 
 ## Near Term
 
-- Add `--profile` for library, app, docs, dataset, and template repositories
+- Implemented in v0.2.0: `--profile` for library, app, docs, dataset, and template repositories
 - Add SARIF output
 - Add pre-commit documentation
 - Add more package metadata checks

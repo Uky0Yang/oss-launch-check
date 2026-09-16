@@ -8,6 +8,7 @@ from .models import AuditResult
 def render_text(result: AuditResult, include_passes: bool = False) -> str:
     lines = [
         f"oss-launch-check: {result.grade} ({result.percent}%)",
+        f"profile={result.profile}",
         f"score={result.score}/{result.max_score} errors={result.error_count} warnings={result.warning_count}",
         "",
         "Categories:",
@@ -34,6 +35,7 @@ def render_markdown(result: AuditResult, include_passes: bool = False) -> str:
         "# Open Source Launch Check",
         "",
         f"**Grade:** {result.grade} ({result.percent}%)",
+        f"**Profile:** {result.profile}",
         f"**Score:** {result.score}/{result.max_score}",
         f"**Errors:** {result.error_count}",
         f"**Warnings:** {result.warning_count}",

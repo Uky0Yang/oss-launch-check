@@ -1,5 +1,7 @@
 # oss-launch-check
 
+New: repository profiles for libraries, apps, docs, datasets and templates. [Usage and examples](docs/maintenance-2026-09.md).
+
 Audit whether a repository is ready to launch as an open-source project.
 
 `oss-launch-check` is a dependency-free Python CLI that scans a repository and produces a launch readiness score across documentation, legal, community, automation, security, packaging, hygiene, quality, and AI-agent readiness.

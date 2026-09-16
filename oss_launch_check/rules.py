@@ -30,7 +30,18 @@ README_SECTION_HINTS = {
 }
 
 
-def audit(snapshot: RepoSnapshot) -> AuditResult:
+PROFILES = {
+    "library": set(),
+    "app": set(),
+    "docs": {"packaging.metadata"},
+    "dataset": {"packaging.metadata"},
+    "template": {"packaging.metadata"},
+}
+
+
+def audit(snapshot: RepoSnapshot, profile: str = "library") -> AuditResult:
+    if profile not in PROFILES:
+        raise ValueError(f"unknown profile: {profile}")
     findings = [
         check_readme(snapshot),
         check_readme_sections(snapshot),
@@ -49,7 +60,14 @@ def audit(snapshot: RepoSnapshot) -> AuditResult:
         check_roadmap(snapshot),
         check_secret_patterns(snapshot),
     ]
-    return build_result(snapshot, findings)
+    if profile in {"docs", "dataset", "template"}:
+        validators = [p for p in snapshot.files if p.startswith("scripts/validate") or p.startswith("scripts/check")]
+        if validators:
+            findings = [pass_finding("quality.tests", "Validation", "quality", 10, validators[0], "Validation script exists.") if f.rule_id == "quality.tests" else f for f in findings]
+    findings = [f for f in findings if f.rule_id not in PROFILES[profile]]
+    result = build_result(snapshot, findings)
+    result.profile = profile
+    return result
 
 
 def finding(

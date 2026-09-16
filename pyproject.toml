@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "oss-launch-check"
-version = "0.1.0"
+version = "0.2.0"
 description = "Audit whether a repository is ready to launch as an open-source project."
 readme = "README.md"
 requires-python = ">=3.10"

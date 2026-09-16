@@ -6,7 +6,7 @@ import sys
 
 from . import __version__
 from .report import render_json, render_markdown, render_text
-from .rules import audit
+from .rules import PROFILES, audit
 from .scanner import scan_repo
 
 
@@ -17,6 +17,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("path", nargs="?", default=".", help="Repository or directory to audit.")
     parser.add_argument("--format", choices=("text", "markdown", "json"), default="text", help="Output format.")
+    parser.add_argument("--profile", choices=tuple(PROFILES), default="library", help="Select applicable checks (default: library).")
     parser.add_argument("--output", "-o", help="Write report to a file.")
     parser.add_argument("--min-score", type=int, default=0, help="Exit non-zero if score percent is below this threshold.")
     parser.add_argument("--fail-on-error", action="store_true", help="Exit non-zero when error findings exist.")
@@ -29,7 +30,7 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    result = audit(scan_repo(Path(args.path), max_files=args.max_files))
+    result = audit(scan_repo(Path(args.path), max_files=args.max_files), profile=args.profile)
 
     if args.format == "json":
         output = render_json(result)

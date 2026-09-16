@@ -77,6 +77,7 @@ class AuditResult:
     grade: str
     findings: list[Finding]
     categories: dict[str, dict[str, int]]
+    profile: str = "library"
 
     @property
     def percent(self) -> int:
@@ -95,6 +96,7 @@ class AuditResult:
     def to_dict(self) -> dict:
         return {
             "root": self.root,
+            "profile": self.profile,
             "score": self.score,
             "max_score": self.max_score,
             "percent": self.percent,
