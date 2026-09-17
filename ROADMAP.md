@@ -6,7 +6,7 @@
 - Add SARIF output
 - Add pre-commit documentation
 - Add more package metadata checks
-- Publish to PyPI
+- Published to [PyPI](https://pypi.org/project/oss-launch-check/0.2.0/) as v0.2.0
 
 ## Mid Term
 

@@ -33,7 +33,13 @@ This tool gives maintainers a practical pre-flight check before announcing a pro
 
 ## Install
 
-From this repository:
+Install from [PyPI](https://pypi.org/project/oss-launch-check/):
+
+```bash
+python -m pip install oss-launch-check
+```
+
+For development, from a checkout of this repository:
 
 ```bash
 python -m pip install -e .
